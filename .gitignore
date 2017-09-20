@@ -52,5 +52,5 @@ Mkfile.old
 dkms.conf
 
 # Autotools Gens
-configure
 config.*
+Makefile

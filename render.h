@@ -4,6 +4,7 @@
 #include "shapes.h"
 #include "v_buff.h"
 #include "math.h"
+#include "3space.h"
 #include <stdlib.h>
 
 #define DOTSINLINE 100L
@@ -19,7 +20,7 @@
 #define KWHT  "\x1B[37m"
 
 void erase (Screen *buff);
-void render_line (Screen *buff, Line *line, char k);
+void render_Space (Screen *buff, Space *space);
 char *clr_from_num (char n);
 
 #endif	// RENDER_H

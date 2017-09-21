@@ -1,77 +1,93 @@
 #include "shapes.h"
 
-int quad_frame_m[4][2] = {
-	{0, 1},
-	{1, 2},
-	{2, 3},
-	{3, 0}
-};
-
-int quadpoly_frame_m[12][2] = {
-	{0, 1},
-	{1, 2},
-	{2, 3},
-	{3, 0},
-	{0, 4},
-	{1, 5},
-	{2, 6},
-	{3, 7},
-	{4, 5},
-	{5, 6},
-	{6, 7},
-	{7, 4}
-};
-
-Line *new_line (Coord *vertices[2]) {
-	Line *this = malloc(sizeof(Line));
+Object *new_line (Coord *vertices[2]) {
+	Object *this = malloc(sizeof(Object));
 	int i;
 	
 	this->vert_num = 2;
-	
+	this->vertices = malloc(this->vert_num * sizeof(Coord *));
 	for (i = 0; i < 2; i++)
 		this->vertices[i] = vertices[i];
 	
+	this->comp_type_count = 0;
+	
 	return this;
 }
 
-Quad *new_quad (Coord *vertices[4]) {
+Object *new_quad (Coord *vertices[4]) {
 	
 }
 
-Quadpoly *new_quadpoly (Coord *vertices[8]) {
+Object *new_quadpoly (Coord *vertices[8]) {
 	
 }
 
-Quad_Frame *new_quad_frame (Coord *vertices[4]) {
-	Quad_Frame *this = malloc(sizeof(Quad_Frame));
+Object *new_quad_frame (Coord *vertices[4]) {
+	Object *this = malloc(sizeof(Object));
 	int i;
+	int map[4][2] = {
+		{0, 1},
+		{1, 2},
+		{2, 3},
+		{3, 0}
+	};
 	
 	this->vert_num = 4;
-	
+	this->vertices = malloc(this->vert_num * sizeof(Coord *));
 	for (i = 0; i < 4; i++)
 		this->vertices[i] = vertices[i];
 	
-	for (i = 0; i < 4; i++)
-		this->edges[i] = new_line((Coord *[]){ this->vertices[quad_frame_m[i][0]], this->vertices[quad_frame_m[i][1]] });
+	this->comp_type_count = 1;
+	this->component_types = malloc(this->comp_type_count * sizeof(struct component));
+	this->component_types[0].type = Line_;
+	this->component_types[0].count = 4;
 	
+	for (i = 0; i < this->component_types[0].count; i++)
+		this->comps_TMPNAME[i] = new_line((Coord *[]){ this->vertices[map[i][0]], this->vertices[map[i][1]] });
+
 	return this;
 }
 
-Quadpoly_Frame *new_quadpoly_frame (Coord *vertices[8	]) {
-	Quadpoly_Frame *this = malloc(sizeof(Quadpoly_Frame));
+Object *new_quadpoly_frame (Coord *vertices[8	]) {
+	Object *this = malloc(sizeof(Object));
 	int i;
+	int map[12][2] = {
+		{0, 1},
+		{1, 2},
+		{2, 3},
+		{3, 0},
+		{0, 4},
+		{1, 5},
+		{2, 6},
+		{3, 7},
+		{4, 5},
+		{5, 6},
+		{6, 7},
+		{7, 4}
+	};
 	
 	this->vert_num = 8;
-	
+	this->vertices = malloc(this->vert_num * sizeof(Coord *));
 	for (i = 0; i < 8; i++)
 		this->vertices[i] = vertices[i];
 	
-	for (i = 0; i < 12; i++)
-		this->edges[i] = new_line((Coord *[]){ this->vertices[quadpoly_frame_m[i][0]], this->vertices[quadpoly_frame_m[i][1]] });
+	this->comp_type_count = 1;
+	this->component_types = malloc(this->comp_type_count * sizeof(struct component));
+	this->component_types[0].type = Line_;
+	this->component_types[0].count = 12;
+	
+	this->comps_TMPNAME = malloc(this->component_types[0].count * sizeof(Object));
+	for (i = 0; i < this->component_types[0].count; i++)
+		this->comps_TMPNAME[i] = new_line((Coord *[]){ this->vertices[map[i][0]], this->vertices[map[i][1]] });
 	
 	return this;
 }
 
-Quadpoly_Box *new_quadpoly_box (Coord *vertices[8]) {
+Object *new_quadpoly_box (Coord *vertices[8]) {
 	
+}
+
+int count_comps (struct component *component_types) {
+	if (component_types->count > 0)
+	;
 }

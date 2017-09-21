@@ -3,6 +3,13 @@
 
 #include <stdlib.h>
 
+enum shape { Line_, Quad_, Box_ };
+
+struct component {
+	enum shape type;
+	int count;
+};
+
 // TODO: Check all malloc for success
 typedef struct {
 	double x;
@@ -10,58 +17,27 @@ typedef struct {
 	double z;
 } Coord;
 
-typedef struct {
+struct object;
+struct object {
+	enum shape type;
 	int vert_num;
 	Coord **vertices;
-} Object;	// Generic object
-
-typedef struct {
-	int vert_num;
-	Coord *vertices[2];
-} Line;
-
-typedef struct quad {
-	int vert_num;
-	Coord *vertices[4];
-} Quad;
-
-typedef struct quadpoly {
-	int vert_num;
-	Coord *vertices[8];
-} Quadpoly;
-
-typedef struct quad_frame {
-	int vert_num;
-	Coord *vertices[4];
-	Line *edges[4];
-} Quad_Frame;
-
-typedef struct quadpoly_frame {
-	int vert_num;
-	Coord *vertices[8];
-	Line *edges[12];
-} Quadpoly_Frame;
-
-typedef struct quadpoly_box {
-	int vert_num;
-	Coord *vertices[8];
-	Quad *faces[6];
-} Quadpoly_Box;
+	int comp_type_count;
+	struct component *component_types;
+	struct object **comps_TMPNAME;
+};
+typedef struct object Object;
 
 // Basic Shapes
-Line *new_line (Coord *vertices[2]);
-Quad *new_quad (Coord *vertices[4]);
-Quadpoly *new_quadpoly (Coord *vertices[8]);
+Object *new_line (Coord *vertices[2]);
+Object *new_quad (Coord *vertices[4]);
+Object *new_quadpoly (Coord *vertices[8]);
 
 // Wireframes
-Quad_Frame *new_quad_frame (Coord *vertices[4]);
-Quadpoly_Frame *new_quadpoly_frame (Coord *vertices[8]);
+Object *new_quad_frame (Coord *vertices[4]);
+Object *new_quadpoly_frame (Coord *vertices[8]);
 
 // Hollow Boxes
-Quadpoly_Box *new_quadpoly_box (Coord *vertices[8]);
-
-extern int quad_frame_m[4][2];
-extern int quadpoly_frame_m[12][2];
-extern int quadpoly_box_m[6][4];
+Object *new_quadpoly_box (Coord *vertices[8]);
 
 #endif	// shapes_H

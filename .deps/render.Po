@@ -26,7 +26,7 @@ render.o: render.c /usr/include/stdc-predef.h render.h shapes.h \
  /usr/include/bits/nan.h /usr/include/bits/flt-eval-method.h \
  /usr/include/bits/fp-logb.h /usr/include/bits/fp-fast.h \
  /usr/include/bits/mathcalls-helper-functions.h \
- /usr/include/bits/mathcalls.h
+ /usr/include/bits/mathcalls.h 3space.h
 
 /usr/include/stdc-predef.h:
 
@@ -137,3 +137,5 @@ v_buff.h:
 /usr/include/bits/mathcalls-helper-functions.h:
 
 /usr/include/bits/mathcalls.h:
+
+3space.h:

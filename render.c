@@ -9,30 +9,15 @@ void erase (Screen *buff) {
 	}
 }
 
-void render_line (Screen *buff, Line *line, char k) {
-	int i;
-	double t, x, y, z, delta_x, delta_y, delta_z;
-	double *px1 = &line->vertices[0]->x;
-	double *py1 = &line->vertices[0]->y;
-	double *pz1 = &line->vertices[0]->z;
-	double *px2 = &line->vertices[1]->x;
-	double *py2 = &line->vertices[1]->y;
-	double *pz2 = &line->vertices[1]->z;
-	
-	delta_x = (*px2 - *px1) / DOTSINLINE;
-	delta_y = (*py2 - *py1) / DOTSINLINE;
-	delta_z = (*pz2 - *pz1) / DOTSINLINE;
-	for (i = 0; i <= DOTSINLINE; i++) {
-		double x = *px1 + i * delta_x;	// TODO: unbreak fake 3d
-		double y = *py1 + i * delta_y;
-		double z = *pz1 + i * delta_z;
-		x = 5 * x * ASPECT_FACTOR + 40;
-		y = 5 * y + 12;
-		set_Mixel(buff, round(x), round(y), clr_from_num(k));
-	}
+void render_Space (Screen *buff, Space *space) {
+	int i, j, k;
+	for (i = 0; i < space->rendered_slices[0]->height; i++)
+		for (j = 0; j < space->rendered_slices[0]->width; j++)
+			for (k = 0; k < space->depth; k++)
+				buff->rows[i].mixels[j] = space->rendered_slices[k]->rows[i].mixels[j];
 }
 
-char *clr_from_num (char n) {
+char *clr_from_num (char n) {	// TODO: REMOVE THIS
 	switch (n % 8) {
 		case 0:
 			return KNRM"█";

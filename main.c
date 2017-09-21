@@ -1,8 +1,9 @@
+#include "transform.h"
 #include "v_buff.h"
 #include "shapes.h"
 #include "draw.h"
 #include "render.h"
-#include "transform.h"
+#include "3space.h"
 #include <math.h>
 #include <unistd.h>
 
@@ -23,38 +24,28 @@ int main (void) {
 	for (i = 0; i < 8; i++)
 		pcoords[i] = &coords[i];
 	
-	Quadpoly_Frame *qpf = new_quadpoly_frame(pcoords);
+	Object *qpf = new_quadpoly_frame(pcoords);
+	Screen *v_buff = new_Screen(80, 24);
+	Space *three_buff = new_Space(80, 24, 10);
 	
-	Screen *v_buff2 = new_Screen(80, 24);
+	load_Object(three_buff, qpf);
+	
 	double roll = 0.0L;
 	double pitch = -0.5L;
 	double yaw = 0.0L;
-	rotate_object(qpf, roll, pitch, yaw);
-	for (i = 0; i < 12; i++) {
-		double x1 = qpf->edges[i]->vertices[0]->x;
-		double y1 = qpf->edges[i]->vertices[0]->y;
-		double x2 = qpf->edges[i]->vertices[1]->x;
-		double y2 = qpf->edges[i]->vertices[1]->y;
-		render_line(v_buff2, qpf->edges[i], i);
-	}
-	draw(v_buff2);
-	erase(v_buff2);
+	rotate_Object(qpf, roll, pitch, yaw);
 	
 	pitch = 0.0L;
 	roll = 0.01L;
 	yaw = 0.003L;
 	
 	while (1) {
-		rotate_object(qpf, roll, pitch, yaw);
-		for (i = 0; i < 12; i++) {
-			double x1 = qpf->edges[i]->vertices[0]->x;
-			double y1 = qpf->edges[i]->vertices[0]->y;
-			double x2 = qpf->edges[i]->vertices[1]->x;
-			double y2 = qpf->edges[i]->vertices[1]->y;
-			render_line(v_buff2, qpf->edges[i], i);
-		}
-		draw(v_buff2);
-		erase(v_buff2);
+		rotate_Object(qpf, roll, pitch, yaw);
+		erase_Space(three_buff);
+		execute_Space(three_buff);
+		render_Space(v_buff, three_buff);
+		draw(v_buff);
+		erase(v_buff);
 		
 		usleep(20000);
 	}

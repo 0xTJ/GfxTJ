@@ -4,6 +4,6 @@
 #include "v_buff.h"
 #include <stdio.h>
 
-void draw (Screen buff);
+void draw (Screen *buff);
 
 #endif	// DRAW_H

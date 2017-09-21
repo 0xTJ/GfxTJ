@@ -8,16 +8,6 @@
 
 int main (void) {
 	int i;
-	/*double theta = 0;
-	while (1) {
-		double x = 39L + (10L * (80L / 24L) * 0.8 * cos(theta));
-		double y = 11L + (10L * sin(theta));
-		
-		set_Mixel(v_buff, round(x), round(y), '0');
-		draw(v_buff);
-		usleep (20000);
-		theta += 0.02;
-	}*/
 	
 	Coord coords[8];
 	coords[0] = (Coord){ 1, 1, 1 };
@@ -35,7 +25,7 @@ int main (void) {
 	
 	Quadpoly_Frame *qpf = new_quadpoly_frame(pcoords);
 	
-	Screen v_buff2 = new_Screen(80, 24);
+	Screen *v_buff2 = new_Screen(80, 24);
 	double roll = 0.0L;
 	double pitch = -0.5L;
 	double yaw = 0.0L;

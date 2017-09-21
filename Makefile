@@ -102,7 +102,8 @@ CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_gfxtj_OBJECTS = main.$(OBJEXT) v_buff.$(OBJEXT) draw.$(OBJEXT) \
-	shapes.$(OBJEXT) render.$(OBJEXT) transform.$(OBJEXT)
+	shapes.$(OBJEXT) render.$(OBJEXT) transform.$(OBJEXT) \
+	3space.$(OBJEXT)
 gfxtj_OBJECTS = $(am_gfxtj_OBJECTS)
 gfxtj_LDADD = $(LDADD)
 gfxtj_LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(gfxtj_LDFLAGS) \
@@ -266,8 +267,8 @@ target_alias =
 top_build_prefix = 
 top_builddir = .
 top_srcdir = .
-gfxtj_SOURCES = main.c v_buff.c draw.c shapes.c render.c transform.c
-gfxtj_LDFLAGS = -lm -O0
+gfxtj_SOURCES = main.c v_buff.c draw.c shapes.c render.c transform.c 3space.c
+gfxtj_LDFLAGS = -lm
 all: all-am
 
 .SUFFIXES:
@@ -358,6 +359,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+include ./$(DEPDIR)/3space.Po
 include ./$(DEPDIR)/draw.Po
 include ./$(DEPDIR)/main.Po
 include ./$(DEPDIR)/render.Po

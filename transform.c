@@ -29,19 +29,19 @@ void rotate_coord_once (Coord *coord, enum axis axis, double theta) {
 	mult_matrix_coord(coord, rot_matrix);
 }
 
-void rotate_coord (Coord **coord, double roll, double pitch, double yaw) {
-	if (roll != 0)
-		rotate_coord_once((Coord*)coord, X, roll);
-	if (pitch != 0)
-		rotate_coord_once((Coord*)coord, Y, pitch);
-	if (yaw != 0)
-		rotate_coord_once((Coord*)coord, Z, yaw);
+void rotate_coord (Coord *coord, double roll, double pitch, double yaw) {
+	if (roll != 0.0L)
+		rotate_coord_once(coord, X, roll);
+	if (pitch != 0.0L)
+		rotate_coord_once(coord, Y, pitch);
+	if (yaw != 0.0L)
+		rotate_coord_once(coord, Z, yaw);
 }
 
 void rotate_object (Object *object, double roll, double pitch, double yaw) {
 	int i, j;
 	for (i = 0; i < object->vert_num; i++)
-		rotate_coord((&object->vertices)[i], roll, pitch, yaw);
+		rotate_coord((Coord *)(&object->vertices)[i], roll, pitch, yaw);
 }
 
 void mult_matrix_coord (Coord *coord, transfo_matrix rot_matrix) {

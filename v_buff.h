@@ -20,7 +20,7 @@ struct vbuff_screen {
 typedef struct vbuff_mixel Mixel;
 typedef struct vbuff_screen Screen;
 
-Screen new_Screen (int width, int height);
-void set_Mixel (Screen vbuff, int x, int y, char *value);
+Screen *new_Screen (int width, int height);
+void set_Mixel (Screen *vbuff, int x, int y, char *value);
 
 #endif	// V_BUFF_H

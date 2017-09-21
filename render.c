@@ -1,15 +1,15 @@
 #include "render.h"
 
-void erase (Screen buff) {
+void erase (Screen *buff) {
 	int i, j;
-	for (i = buff.height - 1; i >= 0 ; i--) {
-		for (j = 0; j < buff.width; j++) {
-			buff.rows[i].mixels[j].val = " ";
+	for (i = buff->height - 1; i >= 0 ; i--) {
+		for (j = 0; j < buff->width; j++) {
+			buff->rows[i].mixels[j].val = " ";
 		}
 	}
 }
 
-void render_line (Screen buff, Line *line, char k) {
+void render_line (Screen *buff, Line *line, char k) {
 	int i;
 	double t, x, y, z, delta_x, delta_y, delta_z;
 	double *px1 = &line->vertices[0]->x;
@@ -35,28 +35,28 @@ void render_line (Screen buff, Line *line, char k) {
 char *clr_from_num (char n) {
 	switch (n % 8) {
 		case 0:
-			return KNRM"0";
+			return KNRM"█";
 			break;
 		case 1:
-			return KRED"0";
+			return KRED"█";
 			break;
 		case 2:
-			return KGRN"0";
+			return KGRN"█";
 			break;
 		case 3:
-			return KYEL"0";
+			return KYEL"█";
 			break;
 		case 4:
-			return KBLU"0";
+			return KBLU"█";
 			break;
 		case 5:
-			return KMAG"0";
+			return KMAG"█";
 			break;
 		case 6:
-			return KCYN"0";
+			return KCYN"█";
 			break;
 		case 7:
-			return KWHT"0";
+			return KWHT"█";
 			break;
 	}
 }

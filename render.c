@@ -14,7 +14,10 @@ void render_Space (Screen *buff, Space *space) {
 	for (i = 0; i < space->rendered_slices[0]->height; i++)
 		for (j = 0; j < space->rendered_slices[0]->width; j++)
 			for (k = 0; k < space->depth; k++)
-				buff->rows[i].mixels[j] = space->rendered_slices[k]->rows[i].mixels[j];
+				if (space->rendered_slices[k]->rows[i].mixels[j].val[0] != ' ') {
+					//printf("Rending %d, %d, and %d to %c", i, j, k, space->rendered_slices[k]->rows[i].mixels[j].val);
+					buff->rows[i].mixels[j] = space->rendered_slices[k]->rows[i].mixels[j];
+				}
 }
 
 char *clr_from_num (char n) {	// TODO: REMOVE THIS

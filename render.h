@@ -6,6 +6,7 @@
 #include "math.h"
 #include "3space.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 #define DOTSINLINE 100L
 #define ASPECT_FACTOR (2.0L)

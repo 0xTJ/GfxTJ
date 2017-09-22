@@ -1,6 +1,7 @@
 #include "3space.h"
 #include "render.h"
 #include "shapes.h"
+#include <stdio.h>
 
 Space *new_Space (int width, int height, int depth) {
 	Space *this = malloc(sizeof(Space));
@@ -31,27 +32,27 @@ void load_Object (Space *space, Object *object) {
 void execute_Space (Space *space) {
 	int i;
 	for (i = 0; i < space->obj_count; i++)
-		render3_Object(space, space->objects[i]);
+		render3_Object(space, space->objects[i], 0);
 }
 
-void render3_Object (Space *space, Object *object) {
-	int i, obj_count;
+void render3_Object (Space *space, Object *object, char k) {
+	int i, obj_count = 0;
 	if (object->comp_type_count) {
 		for (i = 0; i < object->comp_type_count; i++)
 			obj_count += object->component_types[i].count;
 		for (i=0; i < obj_count; i++)
-			render3_Object(space, object->comps_TMPNAME[i]);
+			render3_Object(space, object->comps_TMPNAME[i], i);
 	}
 	else {
 		switch (object->type) {
 			case Line_:
-				render3_Line(space, object, '█');
+				render3_Line(space, object, k);
 				break;
 		}
 	}
 }
 
-void render3_Line (Space *space, Object *line, char k) {
+void render3_Line (Space *space, Object *line, char c) {
 	int i;
 	double t, x, y, z, delta_x, delta_y, delta_z;
 	double *px1 = &line->vertices[0]->x;
@@ -70,11 +71,13 @@ void render3_Line (Space *space, Object *line, char k) {
 		double z = *pz1 + i * delta_z;
 		x = 5 * x * ASPECT_FACTOR + 40;
 		y = 5 * y + 12;
-		set_Mixel3(space, round(x), round(y), round(z) + space->depth / 2, clr_from_num(k));
+		z = z;
+		set_Mixel3(space, round(x), round(y), round(z) + 3, clr_from_num(c));
 	}
 }
 
 void set_Mixel3(Space *space, int x, int y, int z, char *s) {
+	//printf("Setting %d, %d, and %d to %s", x, y, z, s);
 	space->rendered_slices[z]->rows[y].mixels[x].val = s;
 }
 

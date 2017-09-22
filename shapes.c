@@ -48,7 +48,7 @@ Object *new_quad_frame (Coord *vertices[4]) {
 	return this;
 }
 
-Object *new_quadpoly_frame (Coord *vertices[8	]) {
+Object *new_quadpoly_frame (Coord *vertices[8]) {
 	Object *this = malloc(sizeof(Object));
 	int i;
 	int map[12][2] = {

@@ -1,9 +1,9 @@
-#include "transform.h"
+#include "render.h"
 #include "v_buff.h"
 #include "shapes.h"
 #include "draw.h"
-#include "render.h"
 #include "3space.h"
+#include "transform.h"
 #include <math.h>
 #include <unistd.h>
 
@@ -36,8 +36,8 @@ int main (void) {
 	rotate_Object(qpf, roll, pitch, yaw);
 	
 	pitch = 0.0L;
-	roll = 0.01L;
-	yaw = 0.003L;
+	roll = 0.1L;
+	yaw = 0.03L;
 	
 	while (1) {
 		rotate_Object(qpf, roll, pitch, yaw);
